@@ -41,7 +41,8 @@ For each environment:
 The machines.json file should contain an entry for each environment with the name of the environment as the key.  The host property should contain the
 IP address or hostname for connecting to the environment.  The port property should contain the port to connect to.
 
-`{
+```json
+{
   "local": {
     "host": "127.0.0.1",
     "port": "2376"
@@ -51,4 +52,5 @@ IP address or hostname for connecting to the environment.  The port property sho
     "host": "192.168.1.20",
     "port": "2376"
   }
-}`
+}
+```
