@@ -12,7 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-DOCKERENV_SOURCE="${BASH_SOURCE[0]}"
+if [ -n "$BASH" ]
+then
+	DOCKERENV_SOURCE="${BASH_SOURCE[0]}"
+else
+	DOCKERENV_SOURCE="$0"
+fi
 while [ -h "$DOCKERENV_SOURCE" ]; do
   DOCKERENV_DIR="$( cd -P "$( dirname "$DOCKERENV_SOURCE" )" && pwd )"
   DOCKERENV_SOURCE="$(readlink "$DOCKERENV_SOURCE")"
