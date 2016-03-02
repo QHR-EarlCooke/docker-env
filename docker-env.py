@@ -56,16 +56,23 @@ def main(argv):
 	else:
 		if args[0] in machine_data:
 			data = machine_data[args[0]]
-			hostname = data['host']
-			port = data['port']
+			socket = data.get('socket', 'false')
+			hostname = data.get('host', '')
+			port = data.get('port', '')
 			
-			tempdir = tempfile.mkdtemp(prefix='docker', suffix=environment)
-			os.symlink(env_dir + 'ca.crt', tempdir + '/ca.pem')
-			os.symlink(env_dir + 'personal.crt', tempdir + '/cert.pem')
-			os.symlink(env_dir + 'personal.key', tempdir + '/key.pem')
-			print("export DOCKER_TLS_VERIFY=\"1\"")
-			print("export DOCKER_HOST=\"tcp://" + hostname + ":" + port + '"')
-			print("export DOCKER_CERT_PATH=\"" + tempdir + '"')
+			if (bool(socket)):
+				print("unset DOCKER_TLS_VERIFY")
+				print("unset DOCKER_HOST")
+				print("unset DOCKER_CERT_PATH")
+			else:
+				tempdir = tempfile.mkdtemp(prefix='docker', suffix=environment)
+				os.symlink(env_dir + 'ca.crt', tempdir + '/ca.pem')
+				os.symlink(env_dir + 'personal.crt', tempdir + '/cert.pem')
+				os.symlink(env_dir + 'personal.key', tempdir + '/key.pem')
+				print("export DOCKER_TLS_VERIFY=\"1\"")
+				print("export DOCKER_HOST=\"tcp://" + hostname + ":" + port + '"')
+				print("export DOCKER_CERT_PATH=\"" + tempdir + '"')
+			
 			print("export DOCKERENV_CURRENT_MACHINE=\"" + args[0] + '"')
 		else:
 			print("Unknown machine name: " + args[0], file=sys.stderr)
