@@ -60,10 +60,10 @@ def main(argv):
 			hostname = data.get('host', '')
 			port = data.get('port', '')
 			
-			if (bool(socket)):
-				print("unset DOCKER_TLS_VERIFY")
-				print("unset DOCKER_HOST")
-				print("unset DOCKER_CERT_PATH")
+			if (socket == 'true'):
+				print("export DOCKER_TLS_VERIFY=")
+				print("export DOCKER_HOST=")
+				print("export DOCKER_CERT_PATH=")
 			else:
 				tempdir = tempfile.mkdtemp(prefix='docker', suffix=environment)
 				os.symlink(env_dir + 'ca.crt', tempdir + '/ca.pem')
