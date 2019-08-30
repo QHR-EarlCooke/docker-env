@@ -33,7 +33,7 @@ For each environment:
 
 1. Create a sub-folder with the name of the environment and all the rest of the files to it.
 2. Put the CA public certificate as `ca.crt`.
-3. Put the user's client certificate and key as `personal.crt' and `personal.key` respectively.
+3. Put the user's client certificate and key as `personal.crt` and `personal.key` respectively.
 4. Create a `machines.json` file listing the docker instances within the environment.
 
 ### machines.json Format
